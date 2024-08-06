@@ -1,3 +1,5 @@
+### Modular Framework for Slicing Data Plane Programs and Deploying on Distributed Programmable Network Devices
+
 ```mermaid
 graph TD
     A[Data Plane Program] --> B[Data Plane Program Slicing Module DPPSM]
@@ -24,7 +26,6 @@ graph TD
     M --> Q
     M --> U
 ```
-### Modular Framework for Slicing Data Plane Programs and Deploying on Distributed Programmable Network Devices
 
 **Overview**:
 The framework aims to slice data plane programs into modular components and deploy them across a distributed set of programmable network devices, such as SmartNICs, programmable switches, and routers. This approach enhances the scalability, flexibility, and efficiency of network operations by leveraging the capabilities of programmable network hardware.
@@ -92,35 +93,6 @@ The framework aims to slice data plane programs into modular components and depl
 5. **Security Enforcement**:
    - The SM ensures secure communication and access control between the modules.
    - The integrity of the modules and the data is continuously verified.
-
-### Diagram:
-
-```mermaid
-graph TD
-    A[Data Plane Program] --> B[Data Plane Program Slicing Module (DPPSM)]
-    B --> C[Parser]
-    B --> D[Slicer]
-    B --> E[Optimizer]
-    D --> F[Module Repository (MR)]
-    F --> G[Storage]
-    F --> H[Metadata Manager]
-    I[Deployment Manager (DM)] --> J[Device Profiler]
-    I --> K[Placement Algorithm]
-    I --> L[Configuration Manager]
-    K --> M[Programmable Network Devices]
-    L --> M
-    N[Communication Fabric (CF)] --> O[Inter-Module Communication Protocol (IMCP)]
-    N --> P[Messaging System]
-    Q[Monitoring and Management Console (MMC)] --> R[Dashboard]
-    Q --> S[Alert System]
-    Q --> T[Performance Analyzer]
-    U[Security Module (SM)] --> V[Authentication and Authorization]
-    U --> W[Encryption]
-    U --> X[Integrity Checker]
-    M --> N
-    M --> Q
-    M --> U
-```
 
 ### Summary:
 
