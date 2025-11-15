@@ -1090,3 +1090,338 @@ For build/deployment issues, open a GitHub issue with:
 **Status**: Active Development
 
 *Optimized for bare metal deployment and production CI/CD workflows.*
+
+---
+
+## Bibliography: Libraries and Tools
+
+*Last Updated: 2025-11-15*
+
+This section provides a comprehensive reference to the libraries, tools, and frameworks that support the GPT Nim project's CUDA-accelerated implementation, concurrent programming patterns, and CI/CD pipeline.
+
+### GPU Computing & CUDA Libraries
+
+#### **nimcuda** - CUDA Bindings for Nim
+- **Repository**: [SciNim/nimcuda](https://github.com/SciNim/nimcuda)
+- **Description**: Comprehensive Nim bindings for NVIDIA CUDA libraries, auto-generated using c2nim
+- **Features**:
+  - Bindings for most CUDA libraries (cuBLAS, cuFFT, cuRAND, cuSPARSE, etc.)
+  - Error handling via Nim exceptions
+  - Support for multiple CUDA versions
+- **Usage**: `nimble install nimcuda`
+- **Documentation**: [SciNim Documentation](https://scinim.github.io/getting-started/)
+
+#### **Arraymancer** - Tensor Library with GPU Support
+- **Repository**: [mratsim/Arraymancer](https://github.com/mratsim/Arraymancer)
+- **Description**: Fast, ergonomic tensor library with deep learning focus supporting CPU, CUDA, and OpenCL backends
+- **Features**:
+  - Native CUDA and OpenCL tensor operations
+  - Custom CUDA kernel generation via metaprogramming
+  - CuDNN integration for deep learning
+  - OpenMP parallelization
+- **Performance**: Optimized for both inference and training workloads
+- **Usage**: `nimble install arraymancer`
+- **Documentation**: [Arraymancer Docs](https://mratsim.github.io/Arraymancer/)
+
+#### **CUDA Toolkit 13.0**
+- **Release**: CUDA Toolkit 13.0 Update 2 (September 2025)
+- **Download**: [NVIDIA CUDA Downloads](https://developer.nvidia.com/cuda-downloads)
+- **Release Notes**: [CUDA 13.0 Release Notes](https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html)
+- **Key Features**:
+  - Tile-based programming model enhancements
+  - Unified Arm platform developer experience
+  - Updated Nsight tools (Systems, Compute, Graphics)
+  - Math library improvements (cuBLAS, cuFFT, cuSOLVER)
+  - Enhanced NVCC compiler optimizations
+
+### Concurrent & Parallel Programming
+
+#### **Nim Built-in Concurrency** (Standard Library)
+- **Documentation**: [Nim Manual - Concurrency](https://nim-lang.org/docs/manual.html#threads)
+- **Version**: Nim 2.2.4 (April 2025)
+- **Features**:
+  - Thread-local storage and thread primitives
+  - Lock-free statement support
+  - Atomic operations (`atomics` module)
+  - Channels for message passing
+  - Effect system for compile-time deadlock prevention
+- **Modules**:
+  - `std/locks` - Locks and condition variables
+  - `std/atomics` - Lock-free atomic operations
+  - `std/isolation` - Isolated memory management
+  - `std/tasks` - Lightweight task parallelism
+
+#### **Lock-Free Data Structures**
+- **Approach**: Language-level support via atomic operations and lock-free statements
+- **References**:
+  - [Nim Concurrency System](https://nim-lang.org/araq/concurrency.html)
+  - [Forum: Concurrent Data Structures in 2.0](https://forum.nim-lang.org/t/9264)
+- **Implementation Patterns**:
+  - CAS (Compare-And-Swap) operations via `std/atomics`
+  - Memory ordering guarantees
+  - Custom lock-free stack/queue implementations
+
+### Parsing & Lexical Analysis
+
+#### **nimly** - Lexer/Parser Generator
+- **Repository**: [loloicci/nimly](https://github.com/loloicci/nimly)
+- **Description**: Compile-time lexer and parser generator using lex/yacc syntax
+- **Features**:
+  - Macro-based code generation (no external tools)
+  - LR parser support
+  - Familiar lex/yacc format
+- **Usage**: `nimble install nimly`
+
+#### **mcmurry** - EBNF Parser Generator
+- **Repository**: [chocobo333/mcmurry](https://github.com/chocobo333/mcmurry)
+- **Description**: EBNF-based lexer/parser generator with AST manipulation
+- **Features**:
+  - LR(1) grammar support
+  - EBNF syntax
+  - Integrated lexer and parser generation
+  - AST manipulation in pure Nim
+- **Usage**: `nimble install mcmurry`
+
+#### **NPeg** - PEG Parser Combinators
+- **Repository**: [zevv/npeg](https://github.com/zevv/npeg)
+- **Description**: Pure Nim pattern matching library for Parsing Expression Grammars
+- **Features**:
+  - Compile-time PEG to Nim code generation
+  - Zero-copy parsing
+  - Capture and transformation support
+  - Efficient backtracking
+- **Usage**: `nimble install npeg`
+- **Documentation**: [NPeg Tutorial](https://github.com/zevv/npeg#tutorial)
+
+#### **Nim Compiler Lexer/Parser**
+- **Source**: [Nim/compiler/lexer.nim](https://github.com/nim-lang/Nim/blob/devel/compiler/lexer.nim)
+- **Use Case**: Reference implementation for Nim syntax parsing
+- **Access**: Available in Nim standard distribution
+
+### Testing Frameworks
+
+#### **unittest2** - Enhanced Unit Testing
+- **Repository**: [status-im/nim-unittest2](https://github.com/status-im/nim-unittest2)
+- **Description**: Evolution of stdlib unittest with improved features
+- **Features**:
+  - Two-phase "collect-and-run" mode
+  - Better failure reporting
+  - Parameterized tests
+  - Setup/teardown improvements
+  - Test filtering and selection
+- **Usage**: `nimble install unittest2`
+- **Migration**: Compatible with existing `unittest` code
+
+#### **Testament** - Advanced Test Runner
+- **Documentation**: [Testament Docs](https://nim-lang.org/docs/testament.html)
+- **Description**: Official Nim compiler test framework
+- **Features**:
+  - Process isolation for tests
+  - Multi-target support (C, C++, JS, etc.)
+  - HTML report generation
+  - Parallel test execution
+  - Category-based organization
+  - Dry-run simulation
+- **Usage**: Built into Nim distribution
+- **Command**: `testament run tests/category`
+
+#### **std/unittest** - Standard Library Testing
+- **Documentation**: [unittest Module](https://nim-lang.org/docs/unittest.html)
+- **Description**: Basic unit testing framework included in stdlib
+- **Features**:
+  - Suite and test macros
+  - Assertion utilities (check, require)
+  - Exception testing
+  - Setup/teardown hooks
+- **Usage**: `import std/unittest`
+
+### Build Tools & Dependency Management
+
+#### **Nimble** - Package Manager
+- **Repository**: [nim-lang/nimble](https://github.com/nim-lang/nimble)
+- **Version**: Bundled with Nim 2.2.4+
+- **Description**: Official Nim package manager
+- **Features**:
+  - Dependency resolution
+  - Package installation from Git/local paths
+  - Task automation
+  - Version constraints
+- **Configuration**: `*.nimble` files
+- **Registry**: [Nimble Directory](https://nimble.directory/)
+
+#### **Atlas** - Workspace Manager
+- **Repository**: [nim-lang/atlas](https://github.com/nim-lang/atlas)
+- **Documentation**: [Atlas Docs](https://nim-lang.github.io/Nim/atlas.html)
+- **Description**: Isolated workspace manager for projects and dependencies
+- **Features**:
+  - Dependency placement in `deps/` directory
+  - Git submodule compatibility
+  - URL-based package resolution
+  - nim.cfg file management
+  - No compiler invocation (pure config generation)
+- **Usage**: `koch atlas` or standalone install
+- **Status**: Integrated with Nim 2.2.4+ (April 2025)
+
+#### **choosenim** - Nim Toolchain Installer
+- **Repository**: [nim-lang/choosenim](https://github.com/nim-lang/choosenim)
+- **Version**: 0.8.5+ (required for Nim 2.2.4)
+- **Description**: Official toolchain version manager
+- **Features**:
+  - Multi-version Nim installation
+  - Easy version switching
+  - Proxy-based delegation
+  - Cross-platform support
+- **Installation**: `curl https://nim-lang.org/choosenim/init.sh -sSf | sh`
+- **Usage**: `choosenim stable`, `choosenim devel`
+
+### Memory Management & Performance
+
+#### **ARC** - Automatic Reference Counting
+- **Documentation**: [Nim Memory Management](https://nim-lang.github.io/Nim/mm.html)
+- **Compiler Flag**: `--mm:arc`
+- **Features**:
+  - Scope-based deterministic destruction
+  - Move semantics optimization
+  - No cycle collector (no runtime pauses)
+  - Hard real-time suitability
+  - Reduced RAM usage
+- **Profiling**: `--expandArc:functionName`
+
+#### **ORC** - Owned References with Cycle Detection
+- **Default Since**: Nim 2.0+
+- **Compiler Flag**: `--mm:orc` (default)
+- **Features**:
+  - All ARC features
+  - Trial deletion cycle collector
+  - Handles reference cycles automatically
+  - Slight performance trade-off vs ARC
+- **Use Case**: General-purpose applications with complex object graphs
+- **Profiling**: `--expandArc:fileName`
+
+#### **Performance Profiling Tools**
+- **Valgrind Integration**: Memory leak detection
+  - `nim c --debugger:native -d:useMalloc`
+- **Nim Profiler**: Built-in profiling
+  - `nim c -d:release --profiler:on --stackTrace:on`
+- **ARC/ORC Inspector**:
+  - `--expandArc` - View optimized memory operations
+  - `--expandMir` - Inspect mid-level IR
+
+### CI/CD & DevOps
+
+#### **GitHub Actions for Nim**
+- **Action**: [jiro4989/setup-nim-action](https://github.com/jiro4989/setup-nim-action)
+- **Description**: GitHub Action for installing Nim
+- **Features**:
+  - Multi-version support
+  - Cross-platform (Linux, macOS, Windows)
+  - Cached installations
+- **Usage**:
+  ```yaml
+  - uses: jiro4989/setup-nim-action@v1
+    with:
+      nim-version: 'stable'
+  ```
+
+#### **CUDA Toolkit GitHub Action**
+- **Action**: [Jimver/cuda-toolkit](https://github.com/Jimver/cuda-toolkit)
+- **Version**: v0.2.11+
+- **Description**: Install CUDA Toolkit in GitHub Actions
+- **Features**:
+  - CUDA 11.x - 13.x support
+  - Linux and Windows runners
+  - Configurable installation path
+- **Usage**:
+  ```yaml
+  - uses: Jimver/cuda-toolkit@v0.2.11
+    with:
+      cuda: '12.3.0'
+  ```
+
+#### **Docker Images**
+- **nimlang/nim**: Official Nim Docker images
+  - Repository: [Docker Hub](https://hub.docker.com/r/nimlang/nim)
+  - Tags: `latest`, `2.2.4`, `alpine`, `ubuntu`
+- **nvidia/cuda**: CUDA base images
+  - Repository: [NVIDIA NGC](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda)
+  - Recommended: `nvidia/cuda:12.3.0-devel-ubuntu22.04`
+
+### System Programming & Utilities
+
+#### **os** - Operating System Interface
+- **Documentation**: [os Module](https://nim-lang.org/docs/os.html)
+- **Features**: File system operations, process management, environment variables
+
+#### **strutils** - String Utilities
+- **Documentation**: [strutils Module](https://nim-lang.org/docs/strutils.html)
+- **Features**: String manipulation, parsing, formatting
+
+#### **json** - JSON Serialization
+- **Documentation**: [json Module](https://nim-lang.org/docs/json.html)
+- **Features**: JSON parsing and generation
+
+#### **asyncdispatch** - Async I/O
+- **Documentation**: [asyncdispatch Module](https://nim-lang.org/docs/asyncdispatch.html)
+- **Features**: Asynchronous event loop, async/await support
+
+### Additional Resources
+
+#### **Official Documentation**
+- **Nim Manual**: [https://nim-lang.org/docs/manual.html](https://nim-lang.org/docs/manual.html)
+- **Nim Tutorial**: [https://nim-lang.org/docs/tut1.html](https://nim-lang.org/docs/tut1.html)
+- **Nim by Example**: [https://nim-by-example.github.io/](https://nim-by-example.github.io/)
+
+#### **Community Resources**
+- **Nim Forum**: [https://forum.nim-lang.org/](https://forum.nim-lang.org/)
+- **Nim Discord**: [https://discord.gg/nim](https://discord.gg/nim)
+- **SciNim**: [https://scinim.github.io/](https://scinim.github.io/) - Scientific computing in Nim
+
+#### **Academic References**
+- Rumpf, A. (2025). "Nim Memory Management Evolution: From GC to ARC/ORC"
+- NVIDIA Corporation. (2025). "CUDA Toolkit 13.0 Programming Guide"
+- Herlihy, M., Shavit, N. (2012). "The Art of Multiprocessor Programming" - Lock-free algorithms reference
+
+#### **Performance Benchmarking**
+- **Computer Language Benchmarks Game**: [Nim Performance](https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html)
+- **Nim vs Other Languages**: [Forum Benchmarks](https://forum.nim-lang.org/)
+
+---
+
+### Version Information
+
+| Component | Version | Release Date |
+|-----------|---------|--------------|
+| Nim | 2.2.4 | April 22, 2025 |
+| CUDA Toolkit | 13.0.2 | September 2025 |
+| choosenim | 0.8.5+ | Q1 2025 |
+| nimcuda | Latest | Active Development |
+| Arraymancer | Latest | Active Development |
+
+---
+
+### Installation Quick Reference
+
+```bash
+# Install Nim toolchain
+curl https://nim-lang.org/choosenim/init.sh -sSf | sh
+choosenim stable
+
+# Install CUDA support
+nimble install nimcuda
+nimble install arraymancer
+
+# Install testing frameworks
+nimble install unittest2
+
+# Install parser tools
+nimble install nimly npeg
+
+# Verify installations
+nim --version
+nimble list --installed
+nvcc --version
+```
+
+---
+
+*For package updates and new releases, consult the [Nimble Package Directory](https://nimble.directory/) and individual project repositories.*
